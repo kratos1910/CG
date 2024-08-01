@@ -1,0 +1,97 @@
+#include<windows.h>
+#include <GL/glut.h>
+
+float angle = 0.0;
+
+void init()
+{
+    glClearColor(0.0, 0.0, 0.0, 1.0);
+    glEnable(GL_DEPTH_TEST);
+    glMatrixMode(GL_PROJECTION);
+    glLoadIdentity();
+    gluPerspective(45.0, 1.0, 1.0, 100.0);
+    glMatrixMode(GL_MODELVIEW);
+}
+
+void display()
+{
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+    glLoadIdentity();
+    glTranslatef(0.0, 0.0, -6.0);
+    glRotatef(angle, 1.0, 1.0, 1.0);
+
+    glBegin(GL_QUADS);
+    // Front face
+       // Front face
+glColor3f(1.0f, 0.0f, 0.0f); // Red color
+glVertex3f(-1.0, -1.0, 1.0);
+glVertex3f(1.0, -1.0, 1.0);
+glVertex3f(1.0, 1.0, 1.0);
+glVertex3f(-1.0, 1.0, 1.0);
+
+// Back face
+glColor3f(0.0f, 1.0f, 0.0f); // Green color
+glVertex3f(-1.0, -1.0, -1.0);
+glVertex3f(-1.0, 1.0, -1.0);
+glVertex3f(1.0, 1.0, -1.0);
+glVertex3f(1.0, -1.0, -1.0);
+
+// Top face
+glColor3f(1.0f, 1.0f, 0.0f); // Yellow color
+glVertex3f(-1.0, 1.0, -1.0);
+glVertex3f(1.0, 1.0, -1.0);
+glVertex3f(1.0, 1.0, 1.0);
+glVertex3f(-1.0, 1.0, 1.0);
+
+// Bottom face
+glColor3f(0.0f, 0.0f, 1.0f); // Blue color
+glVertex3f(-1.0, -1.0, -1.0);
+glVertex3f(-1.0, -1.0, 1.0);
+glVertex3f(1.0, -1.0, 1.0);
+glVertex3f(1.0, -1.0, -1.0);
+
+// Right face
+glColor3f(1.0f, 0.0f, 1.0f); // Purple color
+glVertex3f(1.0, -1.0, -1.0);
+glVertex3f(1.0, 1.0, -1.0);
+glVertex3f(1.0, 1.0, 1.0);
+glVertex3f(1.0, -1.0, 1.0);
+
+// Left face
+glColor3f(0.0f, 1.0f, 1.0f); // Cyan color
+glVertex3f(-1.0, -1.0, -1.0);
+glVertex3f(-1.0, -1.0, 1.0);
+glVertex3f(-1.0, 1.0, 1.0);
+glVertex3f(-1.0, 1.0, -1.0);
+
+    glEnd();
+
+    glutSwapBuffers();
+}
+
+
+
+void timer(int)
+{
+    angle += 2.0;
+    glutPostRedisplay();
+    glutTimerFunc(1000/60, timer, 0);
+}
+
+int main(int argc, char** argv)
+{
+    glutInit(&argc, argv);
+    glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB | GLUT_DEPTH);
+    glutInitWindowSize(500, 500);
+    glutCreateWindow("vtucode | 3D Transformations");
+
+    init();
+    glutDisplayFunc(display);
+
+    glutTimerFunc(1000/60, timer, 0);
+
+
+
+    glutMainLoop();
+    return 0;
+}
